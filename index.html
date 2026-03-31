@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-Battles × Phygital+ — Баттл #3 · Товарные карточки</title>
+  <style>
+    /* ── DARK THEME (default) ── */
+    :root {
+      --bg-body: linear-gradient(180deg,#05070d 0%,#0a1020 40%,#060913 100%);
+      --bg-rad1: rgba(104,240,255,.14);
+      --bg-rad2: rgba(143,120,255,.18);
+      --card: rgba(17,25,44,.88);
+      --line: rgba(124,145,187,.18);
+      --text: #f5f7ff;
+      --muted: #9aa6c7;
+      --accent: #68f0ff;
+      --accent-2: #8f78ff;
+      --gold: #ffcf5a;
+      --silver: #dce7ff;
+      --bronze: #f2a66f;
+      --shadow: 0 20px 60px rgba(0,0,0,.38);
+      --hero-bg: linear-gradient(145deg,rgba(17,24,43,.92),rgba(9,13,26,.94));
+      --hero-border: rgba(104,240,255,.18);
+      --sp-bg: rgba(255,255,255,.055);
+      --sp-hover: rgba(104,240,255,.08);
+      --panel-bg: rgba(17,25,44,.88);
+      --row-bg: rgba(255,255,255,.025);
+      --stat-bg: rgba(255,255,255,.035);
+      --modal-bg: linear-gradient(155deg,rgba(17,25,44,.98),rgba(9,13,26,.99));
+      --modal-border: rgba(104,240,255,.22);
+      --bd-row: rgba(255,255,255,.03);
+      --top3-bg: rgba(255,255,255,.025);
+      --toggle-ico: "☀️";
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg-body: linear-gradient(180deg,#eef3ff 0%,#f0f5ff 100%);
+      --bg-rad1: rgba(104,200,255,.12);
+      --bg-rad2: rgba(143,120,255,.1);
+      --card: rgba(255,255,255,.92);
+      --line: rgba(80,110,180,.15);
+      --text: #0a1020;
+      --muted: #5a6a90;
+      --accent: #006fa8;
+      --accent-2: #4433bb;
+      --gold: #b07800;
+      --silver: #4466aa;
+      --bronze: #9e4e10;
+      --shadow: 0 8px 28px rgba(0,0,40,.12);
+      --hero-bg: linear-gradient(145deg,rgba(230,238,255,.9),rgba(245,250,255,.95));
+      --hero-border: rgba(80,140,220,.25);
+      --sp-bg: rgba(0,0,80,.06);
+      --sp-hover: rgba(0,100,200,.08);
+      --panel-bg: rgba(255,255,255,.92);
+      --row-bg: rgba(0,0,50,.025);
+      --stat-bg: rgba(0,0,60,.04);
+      --modal-bg: linear-gradient(155deg,rgba(240,245,255,.98),rgba(248,252,255,.99));
+      --modal-border: rgba(80,140,220,.3);
+      --bd-row: rgba(0,0,50,.04);
+      --top3-bg: rgba(0,0,60,.04);
+      --toggle-ico: "🌙";
+    }
+    [data-theme="light"] .top3-zone{background:linear-gradient(160deg,rgba(255,243,200,.6),rgba(255,230,150,.35));border-radius:28px;padding:24px;border:1px solid rgba(180,130,0,.2)}
+    [data-theme="light"] .podium{grid-template-columns:1.25fr 1fr 1fr}
+    [data-theme="light"] .zone-label{background:rgba(255,200,50,.18);border-color:rgba(180,130,0,.4);color:#8a5c00}
+    [data-theme="light"] .champion-badge{background:rgba(255,200,50,.18);border-color:rgba(180,130,0,.4);color:#8a5c00}
+    [data-theme="light"] .score-hint{border-color:var(--accent);color:var(--accent);background:rgba(104,240,255,.08)}
+    [data-theme="light"] .podium-score-btn:hover .score-hint{background:rgba(104,240,255,.18)}
+    [data-theme="light"] .tbl-score-btn .score-hint{width:14px;height:14px;font-size:9px;padding-top:2px}
+    [data-theme="light"] .top3-title{background:linear-gradient(135deg,#0a1020 30%,#b07800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    [data-theme="light"] .p1-score-txt{background:linear-gradient(135deg,#0a1020 10%,#b07800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    [data-theme="light"] .podium-score-2{background:linear-gradient(135deg,#0a1020 20%,#4466aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    [data-theme="light"] .podium-score-3{background:linear-gradient(135deg,#0a1020 20%,#9e4e10);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    [data-theme="light"] .hero::before{opacity:.1}
+    [data-theme="light"] .hero::after{opacity:.08}
+    [data-theme="light"] .podium-card.rank-1{background:linear-gradient(145deg,rgba(255,248,220,.92),rgba(255,252,240,.96));border-color:rgba(180,140,0,.45)}
+    [data-theme="light"] .podium-card.rank-2{background:linear-gradient(145deg,rgba(235,240,255,.92),rgba(245,250,255,.96));border-color:rgba(80,120,200,.3)}
+    [data-theme="light"] .rank-2 .podium-rank{background:linear-gradient(135deg,#7aa0e0,#b0c8f8);color:#fff}
+    [data-theme="light"] .podium-card.rank-3{background:linear-gradient(145deg,rgba(255,240,230,.92),rgba(255,248,242,.96));border-color:rgba(180,100,40,.25)}
+    [data-theme="light"] .modal-close-btn:hover{border-color:rgba(200,0,0,.4);color:#c00}
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;
+      background:
+        radial-gradient(circle at top left, var(--bg-rad1),transparent 28%),
+        radial-gradient(circle at top right,var(--bg-rad2),transparent 32%),
+        var(--bg-body);
+      color:var(--text);min-height:100vh;transition:background .3s,color .3s;
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* SHELL */
+    .shell{max-width:1280px;margin:0 auto;padding:28px 20px 72px}
+
+    /* TOPBAR */
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:-16px;position:relative;z-index:2}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-logo{height:88px;width:auto;display:block;align-self:center;margin-top:23px}
+    .brand-copy small{color:var(--muted);font-size:12px}
+    .brand-copy h1{margin:2px 0 0;font-size:22px;line-height:1;letter-spacing:.04em}
+    .nav-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{padding:11px 17px;border-radius:999px;border:1px solid var(--line);background:var(--stat-bg);color:var(--text);font-weight:600;transition:.2s;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+    .btn:hover{border-color:rgba(104,240,255,.45);transform:translateY(-1px)}
+    .btn-primary{background:linear-gradient(135deg,rgba(104,240,255,.2),rgba(143,120,255,.2));border-color:rgba(104,240,255,.4)}
+    .theme-btn{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--stat-bg);cursor:pointer;font-size:16px;line-height:1;color:var(--text);transition:.2s}
+    .theme-btn:hover{border-color:var(--accent)}
+    [data-theme="dark"] #theme-icon{margin-top:2px}
+
+    /* HERO */
+    .hero{position:relative;overflow:hidden;background:var(--hero-bg);border:1px solid var(--hero-border);border-radius:36px;box-shadow:var(--shadow);padding:20px 28px;margin-bottom:20px}
+    .hero::before,.hero::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;filter:blur(50px);opacity:.18;pointer-events:none}
+    .hero::before{background:var(--accent);top:-160px;left:-120px}
+    .hero::after{background:var(--accent-2);bottom:-220px;right:-80px}
+    .hero-grid{position:relative;display:grid;grid-template-columns:1.55fr 1fr;gap:28px;align-items:end;z-index:1}
+    .eyebrow{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .hero h2{margin:10px 0 14px;font-size:clamp(26px,4.5vw,52px);line-height:1.02;letter-spacing:.03em;text-transform:uppercase}
+    .hero h2 em{display:block;font-style:normal;font-size:.55em;opacity:.65;letter-spacing:.12em;font-weight:700;margin-bottom:4px}
+    .hero p{margin:0;max-width:680px;color:var(--muted);font-size:15px;line-height:1.65}
+    .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat-card{padding:15px;border-radius:16px;background:var(--stat-bg);border:1px solid var(--line);backdrop-filter:blur(10px)}
+    .stat-card strong{display:block;margin-top:6px;font-size:22px;line-height:1;font-weight:900}
+    .stat-card .meta{font-size:11px;color:var(--muted)}
+
+    /* SPONSORS */
+    .sponsors-strip{display:flex;align-items:center;gap:18px;padding:16px 22px;background:var(--top3-bg);border:1px solid var(--line);border-radius:18px;margin-bottom:80px;flex-wrap:nowrap;overflow:hidden}
+    .sp-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);flex-shrink:0;line-height:1.5;text-align:right}
+    .sp-divider{width:1px;height:20px;background:var(--line);flex-shrink:0}
+    .sp-logos{display:flex;gap:8px;flex-wrap:nowrap;align-items:center;flex:1;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
+    .sp-logos::-webkit-scrollbar{display:none}
+    .sp-logo{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);transition:.15s;cursor:default;height:44px}
+    .sp-logo:hover{border-color:rgba(104,240,255,.4);box-shadow:0 0 0 1px rgba(104,240,255,.2)}
+    .sp-logo img{height:26px;width:auto;display:block;max-width:110px}
+
+    /* TOP-3 ZONE */
+    .top3-zone{margin-bottom:0}
+    .zone-banner{text-align:center;margin-bottom:22px}
+    .zone-label{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(255,207,90,.35);background:rgba(255,207,90,.08);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+    .top3-title{font-size:clamp(22px,3.5vw,40px);font-weight:900;letter-spacing:.03em;text-transform:uppercase;margin:0 0 8px;background:linear-gradient(135deg,var(--text) 30%,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .zone-sub{color:var(--muted);font-size:14px;margin:0}
+    .worthy-title{font-size:clamp(20px,3vw,34px);font-weight:900;letter-spacing:.03em;text-transform:uppercase;margin:0 0 8px;background:linear-gradient(135deg,var(--text) 30%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+    /* PODIUM GRID – 3 columns */
+    .podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:0}
+
+    /* PODIUM CARD BASE */
+    .podium-card{position:relative;overflow:hidden;border-radius:26px;padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:0}
+    .podium-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top,rgba(255,255,255,.07),transparent 50%);pointer-events:none;z-index:0}
+
+    /* RANK 1 – CHAMPION */
+    @keyframes gold-pulse{
+      0%,100%{box-shadow:0 0 25px rgba(255,207,90,.2),0 0 55px rgba(255,207,90,.08),var(--shadow)}
+      50%{box-shadow:0 0 50px rgba(255,207,90,.5),0 0 90px rgba(255,207,90,.18),var(--shadow)}
+    }
+    @keyframes silver-pulse{
+      0%,100%{box-shadow:0 0 15px rgba(180,210,255,.1),var(--shadow)}
+      50%{box-shadow:0 0 30px rgba(180,210,255,.25),var(--shadow)}
+    }
+    .podium-card.rank-1{background:linear-gradient(150deg,rgba(28,22,5,.97),rgba(18,14,2,.99));border:1px solid rgba(255,207,90,.55);animation:gold-pulse 2.8s ease-in-out infinite}
+    .podium-card.rank-2{background:linear-gradient(150deg,rgba(16,20,38,.96),rgba(10,14,26,.98));border:1px solid rgba(180,210,255,.28);animation:silver-pulse 3.2s ease-in-out infinite}
+    .podium-card.rank-3{background:linear-gradient(150deg,rgba(22,14,8,.96),rgba(13,9,5,.98));border:1px solid rgba(242,166,111,.22);box-shadow:0 0 18px rgba(242,166,111,.06),var(--shadow)}
+
+    /* RANK HEADER (rank number + champion badge) */
+    .rank-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px;z-index:1;position:relative}
+    .podium-rank{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;font-weight:900;font-size:20px;color:#081019;flex-shrink:0}
+    .rank-1 .podium-rank{background:linear-gradient(135deg,var(--gold),#fff0a6);width:52px;height:52px;font-size:22px}
+    .rank-2 .podium-rank{background:linear-gradient(135deg,#dce7ff,#fff);width:52px;height:52px;font-size:22px}
+    .rank-3 .podium-rank{background:linear-gradient(135deg,#f2a66f,#ffd3b1);width:52px;height:52px;font-size:22px}
+    .champion-badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:rgba(255,207,90,.12);border:1px solid rgba(255,207,90,.35);color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+
+    /* CARD CONTENT */
+    .podium-card .z1{position:relative;z-index:1}
+    .podium-name{font-size:22px;font-weight:900;margin:0 0 4px}
+    .podium-tg{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;font-size:13px;margin-top:-2px}
+
+    /* SCORE BUTTON */
+    .podium-top-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+    .podium-identity{display:flex;flex-direction:column;gap:0}
+    .podium-score-btn{background:none;border:none;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;z-index:1;position:relative}
+    .p1-score-txt{font-size:40px;font-weight:900;line-height:1;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 15%,var(--gold) 70%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .podium-score-2{font-size:40px;font-weight:900;line-height:1;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 20%,#b4c8ef);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .podium-score-3{font-size:40px;font-weight:900;line-height:1;letter-spacing:-.02em;background:linear-gradient(135deg,#fff 20%,var(--bronze));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .score-hint{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:rgba(104,240,255,.12);border:1px solid rgba(104,240,255,.3);color:var(--accent);font-size:12px;font-weight:700;flex-shrink:0;transition:.15s;line-height:1}
+    .podium-score-btn:hover .score-hint{background:rgba(104,240,255,.25);transform:scale(1.1)}
+    .podium-score-btn .score-hint{align-self:flex-start;margin-top:7px}
+    .tbl-score-btn .score-hint{width:14px;height:14px;font-size:9px;padding-top:2px}
+    .score-pts-label{font-size:11px;color:var(--muted);font-weight:500}
+
+    /* BADGES */
+    .podium-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px;margin-bottom:12px;z-index:1;position:relative}
+    .bchip{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid transparent;white-space:nowrap}
+    .bchip-winner{background:rgba(255,207,90,.12);border-color:rgba(255,207,90,.35);color:var(--gold)}
+    .bchip-finalist{background:rgba(104,240,255,.08);border-color:rgba(104,240,255,.25);color:var(--accent)}
+    .bchip-earlybird{background:rgba(126,247,184,.1);border-color:rgba(126,247,184,.55);color:#3de898}
+    .bchip-clock{background:rgba(255,214,120,.1);border-color:rgba(255,214,120,.7);color:#ffcc33}
+    .bchip-diamond{background:rgba(143,120,255,.1);border-color:rgba(143,120,255,.38);color:#b8a8f0}
+    .bchip-check{background:rgba(180,190,200,.08);border-color:rgba(180,190,200,.3);color:#a0aab4}
+    .bchip-nom{background:rgba(143,120,255,.1);border-color:rgba(143,120,255,.28);color:#c4b4ff}
+    [data-theme="light"] .bchip-nom{border-color:rgba(143,120,255,.55);color:rgba(143,120,255,.9)}
+    [data-theme="light"] .bchip-clock{border-color:rgba(210,150,0,.6);color:#c48500}
+
+    /* PRIZE BOX */
+    .prize-box{padding:10px 13px;border-radius:12px;border:1px solid rgba(104,240,255,.18);background:linear-gradient(135deg,rgba(104,240,255,.06),rgba(143,120,255,.06));font-size:11px;color:var(--muted);line-height:1.55;margin-bottom:12px;z-index:1;position:relative}
+    .prize-box b{display:block;margin-bottom:3px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+    [data-theme="light"] .prize-box{color:var(--text)}
+
+    /* WORK LINKS */
+    .work-links{display:flex;gap:6px;flex-wrap:wrap;z-index:1;position:relative}
+    .work-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--stat-bg);color:var(--muted);font-size:11px;font-weight:600;white-space:nowrap;transition:.15s}
+    .work-btn:hover{border-color:rgba(104,240,255,.4);color:var(--accent);background:rgba(104,240,255,.05)}
+    .work-btn svg{width:10px;height:10px}
+
+    /* SECTION DIVIDER */
+    .section-divider{margin:80px 0 24px;text-align:center}
+    .section-divider .div-label{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid rgba(104,240,255,.25);background:rgba(104,240,255,.06);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+
+    /* CONTENT GRID */
+    .content-grid{display:grid;grid-template-columns:1fr 256px;gap:20px;align-items:start}
+
+    /* PANEL */
+    .panel{background:var(--panel-bg);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);overflow:hidden}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px 16px;border-bottom:1px solid var(--line)}
+    .panel-head h3{margin:0;font-size:19px;letter-spacing:.02em}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px 0}
+    .search,.chip{background:var(--stat-bg);border:1px solid var(--line);color:var(--text)}
+    .search{flex:1 1 200px;min-width:0;border-radius:11px;padding:10px 14px;outline:none;font-size:13px}
+    .chip{border-radius:999px;padding:8px 13px;font-weight:600;cursor:pointer;font-size:12px}
+    .chip.active{border-color:rgba(104,240,255,.4);color:var(--accent)}
+
+    /* TABLE */
+    .table-wrap{padding:12px 14px 14px;overflow-x:auto}
+    table{width:100%;border-collapse:separate;border-spacing:0 6px;min-width:540px;table-layout:fixed}
+    thead th:nth-child(1){width:44px}
+    thead th:nth-child(2){width:180px}
+    thead th:nth-child(3){width:110px}
+    thead th{text-align:left;padding:0 10px 8px;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em}
+    tbody tr{background:var(--row-bg)}
+    tbody td{padding:11px 10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:middle}
+    tbody td:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px}
+    tbody td:nth-child(2),thead th:nth-child(2){padding-left:30px}
+    tbody td:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0}
+    .rank-cell{display:inline-flex;min-width:34px;height:34px;align-items:center;justify-content:center;border-radius:10px;font-weight:800;font-size:12px;background:var(--stat-bg);border:1px solid var(--line)}
+    .participant{display:flex;flex-direction:column;gap:2px;min-width:140px}
+    .p-name{font-weight:800;font-size:14px}
+    .p-tg{display:inline-flex;align-items:center;gap:4px;color:var(--accent);font-size:11px;font-weight:500}
+    .tbl-score-btn{background:none;border:none;padding:0;cursor:pointer;display:inline-flex;align-items:center;gap:6px;color:var(--text)}
+    .tbl-score-num{font-size:19px;font-weight:800}
+    .badge-row{display:flex;gap:4px;flex-wrap:wrap;width:100%;overflow:hidden}
+
+    /* SIDEBAR */
+    .side-stack{display:grid;gap:18px}
+    .legend{padding:18px}
+    .legend h4{margin:0 0 12px;font-size:15px}
+    .legend-list{display:grid}
+    .legend-item{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-top:1px solid var(--line)}
+    .legend-item:first-child{border-top:0;padding-top:0}
+    .legend-mark{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--stat-bg);border:1px solid var(--line);flex-shrink:0;font-size:12px}
+    .leg-title{font-weight:700;font-size:11px;margin-bottom:1px}
+    .leg-pts{color:var(--accent);font-weight:800;font-size:11px}
+    .leg-desc{color:var(--muted);font-size:10px;line-height:1.4}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(4,6,16,.82);backdrop-filter:blur(6px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+    .modal-card{background:var(--modal-bg);border:1px solid var(--modal-border);border-radius:26px;box-shadow:0 40px 80px rgba(0,0,0,.5);width:100%;max-width:420px;max-height:90vh;overflow-y:auto;position:relative}
+    .modal-header{padding:20px 20px 13px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:sticky;top:0;background:var(--panel-bg);border-radius:26px 26px 0 0;z-index:1}
+    .modal-total{font-size:40px;font-weight:900;line-height:1;letter-spacing:-.02em;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .modal-total-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+    .modal-pname{font-size:15px;font-weight:800}
+    .modal-ptg{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:12px;margin-top:3px}
+    .modal-close-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--stat-bg);color:var(--muted);font-size:14px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:.15s}
+    .modal-close-btn:hover{border-color:rgba(255,100,120,.5);color:#ff6070}
+    .modal-body{padding:16px 20px}
+    .breakdown-list{display:grid;gap:5px;margin-bottom:10px}
+    .breakdown-row{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;background:var(--bd-row);border:1px solid var(--line)}
+    .bd-label-wrap{display:flex;flex-direction:column;gap:1px;flex:1}
+    .bd-desc{font-size:10px;color:var(--muted);opacity:.7}
+    .breakdown-ico{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex-shrink:0}
+    .breakdown-ico svg{width:12px;height:12px}
+    .ico-trophy{background:rgba(255,207,90,.15);color:#ffcf5a}
+    .ico-flag{background:rgba(104,240,255,.12);color:var(--accent)}
+    .ico-diamond{background:rgba(143,120,255,.12);color:#c4b4ff}
+    .ico-check{background:rgba(126,247,184,.1);color:#7ef7b8}
+    .ico-clock{background:rgba(255,214,120,.1);color:#ffd678}
+    .ico-bird{background:rgba(126,247,184,.12);color:#7ef7b8}
+    .ico-lab{background:rgba(104,240,255,.1);color:var(--accent)}
+    .bd-label{font-size:12px;color:var(--muted)}
+    [data-theme="light"] .bd-label{color:var(--text)}
+    .bd-pts{font-size:13px;font-weight:800;color:var(--text);white-space:nowrap}
+    .modal-prizes{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+    .modal-prizes h5{margin:0 0 7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .prize-item{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:#c4b4ff;line-height:1.4;margin-bottom:6px}
+    [data-theme="light"] .prize-item{color:var(--accent-2)}
+    [data-theme="dark"] .sp-logo{background:transparent;border-color:transparent}
+    [data-theme="dark"] .sp-logo img{filter:grayscale(1) brightness(0.78)}
+    [data-theme="dark"] .sp-logo img[alt="FLOWWOW"]{filter:invert(1) grayscale(1) brightness(1.6)}
+    .sp-logo img[alt="FLOWWOW"]{transform:scale(1.2)}
+    [data-theme="dark"] .sp-logo img[alt="Ашан"]{filter:grayscale(1) brightness(2.2)}
+    [data-theme="dark"] .sp-logo img[alt="Viola"]{filter:grayscale(1) brightness(1.6)}
+    .sp-logo img[alt="Ашан"]{transform:translateY(-1.5px)}
+    [data-theme="dark"] .sp-logo img[alt="O'STIN"]{filter:invert(1) grayscale(1) brightness(0.65)}
+    .sp-logo img[alt="O'STIN"]{transform:scale(1.3)}
+    [data-theme="dark"] .sp-logo img[alt="X5 Tech"]{filter:invert(1) grayscale(1) brightness(0.65)}
+    .sp-logo img[alt="X5 Tech"]{height:24px;max-width:95px}
+    [data-theme="dark"] .sp-logo img[alt="Эвоком"]{filter:invert(1) grayscale(1) brightness(0.75)}
+    [data-theme="dark"] .sp-logo img[alt="Wildberries"]{filter:invert(1) grayscale(1) brightness(0.65)}
+    .sp-logo img[alt="Wildberries"]{transform:scale(1.5) translateY(-0.5px)}
+    [data-theme="dark"] .sp-logo img[alt="FairLab"]{filter:invert(1) grayscale(1) brightness(0.65)}
+    .sp-logo img[alt="FairLab"]{height:52px;transform:translateY(-3px)}
+    .sp-logo:has(img[alt="FairLab"]){padding:6px 0}
+    .modal-footer{padding:13px 20px 18px;border-top:1px solid var(--line);display:flex;justify-content:center;position:sticky;bottom:0;background:var(--panel-bg);border-radius:0 0 26px 26px}
+    .btn-confirm{padding:12px 28px;border-radius:999px;background:linear-gradient(135deg,rgba(104,240,255,.18),rgba(143,120,255,.18));border:1px solid rgba(104,240,255,.35);color:var(--text);font-weight:700;font-size:14px;cursor:pointer;transition:.2s}
+    .btn-confirm:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(104,240,255,.12)}
+
+    .footer-note{margin-top:28px;text-align:center;color:var(--muted);font-size:12px}
+
+    /* BURGER MENU */
+    .burger-wrap{position:relative;display:none}
+    .burger-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:var(--stat-bg);cursor:pointer;height:38px;width:44px}
+    .burger-btn span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:.2s}
+    .burger-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--panel-bg);border:1px solid var(--line);border-radius:16px;padding:8px;flex-direction:column;gap:6px;z-index:100;box-shadow:var(--shadow);min-width:170px}
+    .burger-menu.open{display:flex}
+    .burger-menu .btn{justify-content:space-between;border-radius:12px}
+    .burger-theme-btn{width:100%}
+    /* мобильные варианты текста скрыты на десктопе */
+    .d-mob-show{display:none}
+
+    /* RESPONSIVE */
+    @media(max-width:1400px){
+      .sponsors-strip{padding:14px 16px;gap:12px}
+      .sp-logos{cursor:grab;user-select:none}
+      .sp-logos.dragging{cursor:grabbing}
+      .sp-logo{flex-shrink:0;pointer-events:none}
+    }
+    @media(max-width:1080px){
+      .hero-grid,.content-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:900px){
+      .podium{grid-template-columns:1fr}
+    }
+    /* 750–600px: круглые кнопки-иконки */
+    @media(max-width:750px){
+      .nav-actions .btn-label{display:none}
+      .nav-actions>.theme-btn,
+      .nav-actions>.btn-home,
+      .nav-actions>.btn-rating{
+        width:38px!important;height:38px!important;
+        padding:0!important;border-radius:50%!important;
+        display:inline-flex!important;align-items:center!important;justify-content:center!important;
+        background:var(--stat-bg)!important;border-color:var(--line)!important;
+        gap:0;min-width:unset;flex-shrink:0
+      }
+      /* hero: мобильная версия */
+      .d-mob-hide{display:none}
+      .d-mob-show{display:inline}
+      .hero{padding:20px;border-radius:24px}
+      .hero-grid{gap:14px}
+      .hero h2{font-size:clamp(20px,4.5vw,28px);margin:6px 0 10px}
+      .hero h2 em{font-size:.72em}
+      .hero p{font-size:13px;line-height:1.5;margin-top:0}
+      .hero-stats{grid-template-columns:1fr 1fr;gap:8px}
+      .stat-card{padding:10px 11px;border-radius:12px}
+      .stat-card strong{font-size:17px;margin-top:3px}
+      .stat-card .meta{font-size:10px}
+    }
+    /* 600px: бургер, home+rating скрыты */
+    @media(max-width:600px){
+      .nav-actions>.btn-home,.nav-actions>.btn-rating{display:none!important}
+      .burger-wrap{display:block}
+    }
+    /* 500px: кнопка темы уходит в бургер */
+    @media(max-width:500px){
+      .nav-actions>.theme-btn{display:none!important}
+    }
+    /* 640px: таблица (hero уже обработан в 700px) */
+    @media(max-width:640px){
+      .shell{padding-inline:12px}
+      .table-wrap{padding:8px 6px 10px}
+      table{min-width:420px}
+      thead th:nth-child(1){position:sticky;left:0;z-index:2;background:var(--panel-bg);width:36px}
+      tbody td:first-child{position:sticky;left:0;z-index:1;background:var(--panel-bg)}
+      thead th:nth-child(2){position:sticky;left:36px;z-index:2;background:var(--panel-bg);width:140px;padding-left:16px}
+      tbody td:nth-child(2){position:sticky;left:36px;z-index:1;background:var(--panel-bg);padding-left:16px}
+      thead th:nth-child(3){width:90px}
+      .p-name{font-size:13px}
+      .tbl-score-num{font-size:16px}
+      .bchip{font-size:9px;padding:3px 7px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG symbols -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ico-trophy" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6.5 2h7v6a3.5 3.5 0 0 1-7 0V2z"/><path d="M4 3H2v2a3 3 0 0 0 4.5 2.6M16 3h2v2a3 3 0 0 1-4.5 2.6"/><path d="M10 11.5v4M7.5 17.5h5"/>
+  </symbol>
+  <symbol id="ico-flag" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 2v16"/><path d="M4 3h12l-3 4.5 3 4.5H4"/>
+  </symbol>
+  <symbol id="ico-diamond" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10 2l3 5h4l-7 9-7-9h4l3-5z"/>
+  </symbol>
+  <symbol id="ico-check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10" cy="10" r="8"/><path d="M6.5 10.5l2.5 2.5 4.5-5"/>
+  </symbol>
+  <symbol id="ico-clock" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/>
+  </symbol>
+  <symbol id="ico-bird" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 9c2-3 6-4 9-2 1.5.8 3 1.5 5 .5"/><path d="M2 9c1 2 3 4 6 4.5v2.5"/><path d="M8 13.5c1 0 3-.5 4-2"/>
+  </symbol>
+  <symbol id="ico-lab" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 2v7l-4 6a1 1 0 0 0 .9 1.5h12.2a1 1 0 0 0 .9-1.5L13 9V2"/><path d="M7 2h6M8.5 12.5h3"/>
+  </symbol>
+  <symbol id="ico-tg" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M17.9 2.6 2.4 8.7c-1 .4-1 1-.2 1.3l3.8 1.2 1.5 4.5c.2.6.4.8.8.8.3 0 .5-.1.8-.4l1.9-1.8 3.9 2.9c.7.4 1.2.2 1.4-.7l2.5-11.8c.3-1.1-.4-1.6-1.1-1.3zm-9 9.3-5.5-1.7L15 5.1l-6.1 6.8zm1.2 4.2-1.2-3.5 6.5-6.5-5.3 10z"/>
+  </symbol>
+  <symbol id="ico-link" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8.5 11.5a4 4 0 0 0 5.6 0l2-2a4 4 0 0 0-5.6-5.6l-1 1"/><path d="M11.5 8.5a4 4 0 0 0-5.6 0l-2 2a4 4 0 0 0 5.6 5.6l1-1"/>
+  </symbol>
+  <symbol id="ico-gift" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="7" width="16" height="3" rx="1"/><path d="M4 10v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/><path d="M10 7V18M10 7a3 3 0 0 0-3-3 2 2 0 0 0 0 4h3zM10 7a3 3 0 0 1 3-3 2 2 0 0 1 0 4h-3"/>
+  </symbol>
+  <symbol id="ico-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+    <circle cx="10" cy="10" r="3.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.1 4.1l1.4 1.4M14.5 14.5l1.4 1.4M4.1 15.9l1.4-1.4M14.5 5.5l1.4-1.4"/>
+  </symbol>
+  <symbol id="ico-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 11.5A7 7 0 1 1 8.5 3a5 5 0 0 0 8.5 8.5z"/>
+  </symbol>
+  <symbol id="ico-home" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L10 3l7 6.5"/><path d="M5 8v8h4v-4h2v4h4V8"/>
+  </symbol>
+</svg>
+
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand">
+      <img src="Logos/AiBattle.png" alt="AI Battles" class="brand-logo"/>
+      <div class="brand-copy">
+        <small>AI-BATTLES × PHYGITAL+</small>
+        <h1>Рейтинг · Баттл #3</h1>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="theme-toggle" title="Сменить тему">
+        <svg width="16" height="16" id="theme-icon" style="margin-top:1px"><use href="#ico-sun"/></svg>
+      </button>
+      <a class="btn btn-home" href="https://aibattle.ru/" style="white-space:nowrap;padding-top:9px;padding-bottom:9px"><span class="btn-label">На главную</span> <svg width="17" height="17" style="flex-shrink:0;margin-top:3px"><use href="#ico-home"/></svg></a>
+      <a class="btn btn-primary btn-rating" href="#leaderboard" style="white-space:nowrap"><span class="btn-label">Рейтинг</span> <span style="margin-left:-1px;margin-right:-1.5px">↓</span></a>
+      <div class="burger-wrap">
+        <button class="burger-btn" id="burger-btn" title="Меню">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="burger-menu" id="burger-menu">
+          <a class="btn btn-home" href="https://aibattle.ru/" style="white-space:nowrap;padding-top:9px;padding-bottom:9px" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>На главную</span> <svg width="16" height="16" style="flex-shrink:0;margin-top:2px"><use href="#ico-home"/></svg></a>
+          <a class="btn btn-primary" href="#leaderboard" style="white-space:nowrap" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>Рейтинг</span> <span style="margin-left:-1px;margin-right:-1.5px">↓</span></a>
+          <button class="btn burger-theme-btn" id="burger-theme-btn" onclick="document.getElementById('theme-toggle').click();document.getElementById('burger-menu').classList.remove('open')"><span id="burger-theme-label">Светлая тема</span><svg width="16" height="16" id="burger-theme-icon" style="flex-shrink:0"><use href="#ico-sun"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <h2><em><span class="d-mob-hide">Создание товарных карточек</span><span class="d-mob-show">Чемпионат по товарным карточкам</span></em><span class="d-mob-hide">с помощью ИИ</span><span class="d-mob-show">С ПОМОЩЬЮ ИИ</span></h2>
+        <p><span class="d-mob-hide">Участники применяли ИИ-инструменты для создания визуального контента по реальным заданиям от брендов O'STIN, SPEEDO и FLOWWOW. Работы оценивались жюри, аудиторией и цифровыми ИИ-респондентами FairLab.</span><span class="d-mob-show">Создание визуального контента по реальным заданиям от брендов O'STIN, SPEEDO и FLOWWOW.</span></p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card"><div class="meta">Участников</div><strong>244</strong></div>
+        <div class="stat-card"><div class="meta">Сдали работы</div><strong>27</strong></div>
+        <div class="stat-card"><div class="meta">Денежный призовой фонд</div><strong>100 000 ₽</strong></div>
+        <div class="stat-card"><div class="meta">Категорий заданий</div><strong>3</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <div class="sponsors-strip">
+    <span class="sp-label">Спонсоры<br>и судьи</span>
+    <div class="sp-divider"></div>
+    <div class="sp-logos">
+      <span class="sp-logo"><img src="Logos/Ostin.png" alt="O'STIN"/></span>
+      <span class="sp-logo"><img src="Logos/Flowwow.svg" alt="FLOWWOW"/></span>
+      <span class="sp-logo"><img src="Logos/Fairlab.png" alt="FairLab"/></span>
+      <span class="sp-logo"><img src="Logos/Wildberrys.png" alt="Wildberries"/></span>
+      <span class="sp-logo"><img src="Logos/Ашан.png" alt="Ашан"/></span>
+      <span class="sp-logo"><img src="Logos/Avito.svg" alt="Avito"/></span>
+      <span class="sp-logo"><img src="Logos/Эвоком.png" alt="Эвоком"/></span>
+      <span class="sp-logo"><img src="Logos/Viola.png" alt="Viola"/></span>
+      <span class="sp-logo"><img src="Logos/X5%20Tech.png" alt="X5 Tech"/></span>
+    </div>
+  </div>
+
+  <!-- TOP-3 ZONE -->
+  <div class="top3-zone">
+    <div class="zone-banner">
+      <div class="zone-label">★ &nbsp; Зал чемпионов &nbsp; ★</div>
+      <h2 class="top3-title">Лучшие из лучших</h2>
+      <p class="zone-sub">Участники, взошедшие на пьедестал Баттла #3</p>
+    </div>
+    <div class="podium" id="podium"></div>
+  </div>
+
+  <!-- "ДОСТОЙНО" DIVIDER -->
+  <div class="section-divider">
+    <div class="div-label">— &nbsp; Достойно показали себя &nbsp; —</div>
+    <h3 class="worthy-title">Полная таблица рейтинга</h3>
+    <p class="zone-sub">Участники набравшие очки рейтинга</p>
+  </div>
+
+  <!-- LEADERBOARD (4+) -->
+  <section class="content-grid" id="leaderboard">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h3>Места 4–27</h3>
+        </div>
+        <div style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px">Нажмите на <span class="score-hint" style="pointer-events:none">i</span> → расшифровка</div>
+      </div>
+      <div class="controls">
+        <input class="search" type="search" id="search-input" placeholder="Поиск по имени или @username"/>
+        <button class="chip active" data-filter="all">Все</button>
+        <button class="chip" data-filter="finalists">Финалисты</button>
+        <button class="chip" data-filter="special">Спец. награды</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Участник</th><th>Очки</th><th>Достижения</th><th>Работы</th></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="side-stack">
+      <section class="panel legend">
+        <div class="eyebrow" style="margin-bottom:10px">Система начисления</div>
+        <h4>Логика баллов</h4>
+        <div class="legend-list">
+          <div class="legend-item"><div class="legend-mark">🏆</div><div><div class="leg-title">Победитель</div><div class="leg-pts">+ 10 000</div><div class="leg-desc">1-е место в категории</div></div></div>
+          <div class="legend-item"><div class="legend-mark">🏁</div><div><div class="leg-title">Финалист</div><div class="leg-pts">+ 3 000</div><div class="leg-desc">Топ-3 в категории</div></div></div>
+          <div class="legend-item"><div class="legend-mark">💎</div><div><div class="leg-title">Аккуратист</div><div class="leg-pts">+ 250 / категория</div><div class="leg-desc">Работа точно по ТЗ</div></div></div>
+          <div class="legend-item"><div class="legend-mark">✅</div><div><div class="leg-title">Пересечь черту</div><div class="leg-pts">+ 250 / работа</div><div class="leg-desc">Факт сдачи</div></div></div>
+          <div class="legend-item"><div class="legend-mark">⏱</div><div><div class="leg-title">В срок</div><div class="leg-pts">+ 250 / работа</div><div class="leg-desc">До дедлайна</div></div></div>
+          <div class="legend-item"><div class="legend-mark">🐦</div><div><div class="leg-title">Ранняя пташка</div><div class="leg-pts">+ 500</div><div class="leg-desc">Первая сданная работа</div></div></div>
+          <div class="legend-item"><div class="legend-mark">👥</div><div><div class="leg-title">Оценка зрителей</div><div class="leg-pts">средний балл по категории × 100</div><div class="leg-desc">По итогам зрительского голосования</div></div></div>
+        </div>
+      </section>
+    </aside>
+  </section>
+
+  <div class="footer-note">AI-Battles × Phygital+ · Баттл #3 «Товарные карточки» · Рейтинг · 2026</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" style="display:none">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <div class="modal-total" id="modal-score"></div>
+        <div class="modal-total-label">очков в рейтинге</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="breakdown-list" id="modal-breakdown"></div>
+      <div class="modal-prizes" id="modal-prizes" style="display:none">
+        <h5>🎁 Спецпризы (не влияют на очки)</h5>
+        <div id="modal-prizes-list"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirm" onclick="closeModal()">Всё понятно</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.onerror=function(msg,src,line){
+  document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#c00;color:#fff;font-size:13px;padding:10px;word-break:break-all">JS ERROR: '+msg+' (line '+line+')</div>');
+  return false;
+};
+// ── ДАННЫЕ ─────────────────────────────────────────────────────────────────
+// works: ссылки на aibattle.ru (категории). Конкретные работы — когда будут прямые ссылки
+const AB = 'https://aibattle.ru/';
+
+const PARTICIPANTS = [
+  {
+    id:1,name:'Александра',user:'AleksandraMalykh',score:16470,
+    badges:['winner:FlowWow','finalist:Speedo','earlybird','clock','nom:fairlab'],
+    prizes:['Победитель FlowWow: 3 м. подписки Phygital+ и 15 000 ₽','Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    works:[{l:'FlowWow',u:AB},{l:'Speedo',u:AB}],
+    bd:[['trophy','Победитель категории FlowWow',10000],['flag','Финалист категории Speedo',3000],['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['bird','Ранняя пташка',500],['lab','FairLab Speedo (64 × 10)',640],['lab','FairLab FlowWow (83 × 10)',830]]
+  },
+  {
+    id:2,name:'Анна',user:'annaivoylova',score:11520,
+    badges:['winner:Speedo','clock'],
+    prizes:['Победитель Speedo (Выбор зрителей): 3 м. подписки Phygital+ и 15 000 ₽'],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['trophy','Победитель категории Speedo',10000],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (77 × 10)',770]]
+  },
+  {
+    id:3,name:'Артём',user:'artem_polienko',score:11180,
+    badges:['winner:Ostin','clock','nom:fairlab'],
+    prizes:["Победитель O'STIN: 3 м. подписки Phygital+ и 15 000 ₽","Спец. FairLab: «Лучшая оценка ИИ-респондентов»"],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['trophy',"Победитель категории O'STIN",10000],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (43 × 10)",430]]
+  },
+  {
+    id:4,name:'Елизавета',user:'lizz_tsun',score:9460,
+    badges:['finalist:FlowWow','finalist:Ostin','clock'],prizes:[],
+    works:[{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['flag','Финалист FlowWow',3000],['flag',"Финалист O'STIN",3000],['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (57 × 10)',570],['lab',"FairLab O'STIN (39 × 10)",390]]
+  },
+  {
+    id:5,name:'Анастасия',user:'pomencuk',score:4590,
+    badges:['finalist:Speedo','clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['flag','Финалист Speedo',3000],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (84 × 10)',840]]
+  },
+  {
+    id:6,name:'Анна',user:'sinelas',score:4570,
+    badges:['finalist:FlowWow','clock'],prizes:[],
+    works:[{l:'FlowWow',u:AB}],
+    bd:[['flag','Финалист FlowWow',3000],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — FlowWow',250],['lab','FairLab FlowWow (82 × 10)',820]]
+  },
+  {
+    id:28,name:'Сергей',user:'sabdes',score:4530,badges:[],prizes:[],
+    works:[{l:"O'STIN",u:AB},{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
+    bd:[['diamond',"Аккуратист — O'STIN",250],['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock',"В срок — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab',"FairLab O'STIN (67 × 10)",670],['lab','FairLab Speedo (82 × 10)',820],['lab','FairLab FlowWow (79 × 10)',790]]
+  },
+  {
+    id:7,name:'Влада',user:'Vlada_Clo3D',score:4060,
+    badges:['finalist:Ostin','clock','nom:ostin','nom:wb'],
+    prizes:["Спец. O'STIN: подарочная карта + парфюм","Спец. Wildberries: «Самый удобный пайплайн»"],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['flag',"Финалист O'STIN",3000],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (31 × 10)",310]]
+  },
+  {
+    id:8,name:'Асия',user:'Asiya_kzn',score:3800,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab Speedo (50 × 10)',500],['lab','FairLab FlowWow (67 × 10)',670],['lab',"FairLab O'STIN (38 × 10)",380]]
+  },
+  {
+    id:9,name:'Надежда',user:'orivmode',score:2760,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (79 × 10)',790],['lab','FairLab FlowWow (47 × 10)',470]]
+  },
+  {
+    id:10,name:'Анастасия',user:'red_piaf',score:2670,badges:['clock'],prizes:[],
+    works:[{l:"O'STIN",u:AB},{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (80 × 10)',800],['lab',"FairLab O'STIN (37 × 10)",370]]
+  },
+  {
+    id:11,name:'Милана',user:'Avis_108',score:2590,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (44 × 10)',440],['lab','FairLab FlowWow (65 × 10)',650]]
+  },
+  {
+    id:12,name:'Дарья',user:'Daria_s100',score:2570,badges:['clock'],prizes:[],
+    works:[{l:'FlowWow',u:AB},{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (72 × 10)',720],['lab','FairLab FlowWow (35 × 10)',350]]
+  },
+  {
+    id:13,name:'AI ART LAB',user:'AI_Art_Lab_Creative',score:2500,badges:['clock'],prizes:[],
+    works:[{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (62 × 10)',620],['lab',"FairLab O'STIN (38 × 10)",380]]
+  },
+  {
+    id:14,name:'Павел',user:'pavelroev',score:1620,
+    badges:['clock','nom:fairlab'],prizes:['Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (87 × 10)',870]]
+  },
+  {
+    id:15,name:'Полина',user:'buta_polina',score:1600,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (85 × 10)',850]]
+  },
+  {
+    id:16,name:'Ангелина',user:'angelinka_lz',score:1330,
+    badges:['nom:fairlab'],prizes:['Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    works:[{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['lab','FairLab FlowWow (83 × 10)',830]]
+  },
+  {
+    id:17,name:'Георгий',user:'GeorgeSharipov',score:1440,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (69 × 10)',690]]
+  },
+  {
+    id:18,name:'Кристина',user:'K_DEZIGN',score:1430,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (68 × 10)',680]]
+  },
+  {
+    id:19,name:'Вера',user:'very_ivanova',score:1380,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (63 × 10)',630]]
+  },
+  {
+    id:20,name:'Дина',user:'Dinart',score:1380,
+    badges:['clock','nom:flowwow'],prizes:['Спец. FlowWow: сертификат 5 000 ₽'],
+    works:[{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — FlowWow',250],['lab','FairLab FlowWow (63 × 10)',630]]
+  },
+  {
+    id:21,name:'Ольга',user:'zlataflame',score:1340,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (59 × 10)',590]]
+  },
+  {
+    id:22,name:'Рина',user:'rina_zg',score:1120,badges:[],prizes:[],
+    works:[{l:'FlowWow',u:AB}],
+    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['lab','FairLab FlowWow (62 × 10)',620]]
+  },
+  {
+    id:23,name:'Мария',user:'masha_vw',score:1120,badges:['clock'],prizes:[],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (37 × 10)",370]]
+  },
+  {
+    id:24,name:'Люба',user:'Lyubashka_ph',score:1110,badges:['clock'],prizes:[],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (36 × 10)",360]]
+  },
+  {
+    id:25,name:'Елена',user:'orkadeisweet',score:1100,badges:['clock'],prizes:[],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (35 × 10)",350]]
+  },
+  {
+    id:26,name:'Игорь',user:'igorsanin',score:1090,
+    badges:['clock','nom:ostin'],prizes:["Спец. O'STIN: номинация «3-е место по ТЗ»"],
+    works:[{l:"O'STIN",u:AB}],
+    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (34 × 10)",340]]
+  },
+  {
+    id:27,name:'Елена',user:'ElenaNekrasovaFG',score:500,badges:[],prizes:[],
+    works:[{l:'Speedo',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250]]
+  },
+];
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0');
+const svgU=(id,s=13)=>`<svg width="${s}" height="${s}" style="flex-shrink:0"><use href="#ico-${id}"/></svg>`;
+const icoC=t=>({trophy:'ico-trophy',flag:'ico-flag',diamond:'ico-diamond',check:'ico-check',clock:'ico-clock',bird:'ico-bird',lab:'ico-lab'}[t]||'ico-check');
+
+function badgeHtml(b){
+  const[type,cat]=b.split(':');
+  const cmap={flowwow:'FlowWow',speedo:'Speedo',ostin:"O'STIN",fairlab:'FairLab',wb:'WB'};
+  const label=cmap[cat&&cat.toLowerCase()]||cat||'';
+  let cls,text;
+  if(type==='winner'){cls='bchip-winner';text='🏆 '+label}
+  else if(type==='finalist'){cls='bchip-finalist';text='🏁 '+label}
+  else if(type==='earlybird'){cls='bchip-earlybird';text='🐦 Ранняя пташка'}
+  else if(type==='clock'){cls='bchip-clock';text='⏰ В срок'}
+  else if(type==='diamond'){cls='bchip-diamond';text='💎 Аккуратист'}
+  else if(type==='check'){cls='bchip-check';text='✓ Сдал работу'}
+  else{const nm={fairlab:'FairLab',ostin:"O'STIN",wb:'WB',flowwow:'FlowWow'};cls='bchip-nom';text='★ '+(nm[cat]||cat)}
+  return`<span class="bchip ${cls}">${text}</span>`;
+}
+
+function allBadges(p,filter){
+  // base badges без diamond/clock/check (они авто-дерайвятся из bd)
+  const base=p.badges.filter(b=>!['diamond','clock','check'].includes(b.split(':')[0]));
+  // аккуратист, в срок, пересечь черту — в нужном порядке
+  const has=t=>p.bd.some(([x])=>x===t);
+  const ach=[];
+  if(has('clock'))ach.push('clock');
+  const all=[...base,...ach];
+  if(!filter||filter==='all')return all;
+  if(filter==='finalists')return all.filter(b=>b.startsWith('finalist')||b.startsWith('winner'));
+  if(filter==='special')return all.filter(b=>b.startsWith('nom')||b==='earlybird');
+  return all;
+}
+
+function workLinksHtml(works){
+  return works.map(w=>`<a class="work-btn" href="${w.u}" target="_blank" rel="noopener">${svgU('link',10)}<span>${w.l}</span></a>`).join('');
+}
+
+// ── PODIUM ─────────────────────────────────────────────────────────────────
+function renderPodium(){
+  const cards=[
+    [PARTICIPANTS[0],'rank-1','p1-score-txt'],
+    [PARTICIPANTS[1],'rank-2','podium-score-2'],
+    [PARTICIPANTS[2],'rank-3','podium-score-3'],
+  ];
+  document.getElementById('podium').innerHTML=cards.map(([p,rankCls,scoreCls])=>{
+    const isChamp=rankCls==='rank-1';
+    const rankNum=PARTICIPANTS.indexOf(p)+1;
+    return`<article class="podium-card ${rankCls}">
+      <div class="rank-header">
+        <div class="podium-rank">${rankNum}</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+          <button class="podium-score-btn" onclick="openModal(${p.id})">
+            <span class="${scoreCls}">${fmt(p.score)}</span>
+            <span class="score-hint">i</span>
+          </button>
+          ${isChamp?'<span class="champion-badge">★ Чемпион Баттла #3</span>':'<span class="champion-badge" style="visibility:hidden">★ Чемпион Баттла #3</span>'}
+        </div>
+      </div>
+      <div class="z1">
+        <div class="podium-identity">
+          <div class="podium-name">${p.name}</div>
+          <a class="podium-tg" href="https://t.me/${p.user}" target="_blank" rel="noopener">${svgU('tg',13)}<span>@${p.user}</span></a>
+        </div>
+        <div class="podium-badges">${allBadges(p).map(badgeHtml).join('')}</div>
+        ${p.prizes.length?`<div class="prize-box"><b>Призы:</b>${p.prizes.map(pr=>`<div>· ${pr}</div>`).join('')}</div>`:''}
+        ${p.works.length?`<div class="work-links">${workLinksHtml(p.works)}</div>`:''}
+      </div>
+    </article>`;
+  }).join('');
+}
+
+// ── TABLE ──────────────────────────────────────────────────────────────────
+function renderTable(data,badgeFilter){
+  document.getElementById('table-body').innerHTML=(data||PARTICIPANTS.slice(3)).map(p=>{
+    const rank=PARTICIPANTS.indexOf(p)+1;
+    return`<tr>
+      <td><span class="rank-cell">${rank}</span></td>
+      <td><div class="participant">
+        <span class="p-name">${p.name}</span>
+        <a class="p-tg" href="https://t.me/${p.user}" target="_blank" rel="noopener">${svgU('tg',11)}<span>@${p.user}</span></a>
+      </div></td>
+      <td><button class="tbl-score-btn" onclick="openModal(${p.id})">
+        <span class="tbl-score-num">${fmt(p.score)}</span>
+        <span class="score-hint">i</span>
+      </button></td>
+      <td><div class="badge-row">${allBadges(p,badgeFilter).map(badgeHtml).join('')||'<span style="color:var(--muted);font-size:11px">—</span>'}</div></td>
+      <td><div style="display:flex;gap:5px;flex-wrap:wrap">${workLinksHtml(p.works)||'—'}</div></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── MODAL ──────────────────────────────────────────────────────────────────
+function openModal(id){
+  const p=PARTICIPANTS.find(x=>x.id===id);if(!p)return;
+  document.getElementById('modal-score').textContent=fmt(p.score);
+  const bdDesc={trophy:'Первое место в категории спонсора',flag:'Топ-3 финалистов в категории',diamond:'Работа соответствует требованиям ТЗ',check:'Работа сдана',clock:'Работа сдана до дедлайна',bird:'Первая сданная работа на батле',lab:'Средняя оценка работ по итогам зрительского голосования * 100'};
+  const fmtLabel=(ico,label)=>ico==='lab'?'Оценка работ '+(label.match(/FairLab\s+(\S+)/)||[])[1]:label;
+  const bdOrder={trophy:0,flag:1,bird:2,lab:3,diamond:4,clock:5,check:6};
+  document.getElementById('modal-breakdown').innerHTML=[...p.bd].sort((a,b)=>b[2]-a[2]||(bdOrder[a[0]]??99)-(bdOrder[b[0]]??99)).map(([ico,label,pts])=>`
+    <div class="breakdown-row">
+      <div class="breakdown-ico ${icoC(ico)}">${svgU(ico,12)}</div>
+      <div class="bd-label-wrap">
+        <span class="bd-label">${fmtLabel(ico,label)}</span>
+        ${bdDesc[ico]?`<span class="bd-desc">${bdDesc[ico]}</span>`:''}
+      </div>
+      <span class="bd-pts">+ ${fmt(pts)}</span>
+    </div>`).join('');
+  const prizesEl=document.getElementById('modal-prizes');
+  document.getElementById('modal-prizes-list').innerHTML=p.prizes.map(pr=>`<div class="prize-item">${svgU('gift',12)}<span>${pr}</span></div>`).join('');
+  prizesEl.style.display=p.prizes.length?'block':'none';
+  document.getElementById('modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+  document.body.style.overflow='';
+}
+
+// ── THEME ──────────────────────────────────────────────────────────────────
+const html=document.documentElement;
+const themeBtn=document.getElementById('theme-toggle');
+const themeIcon=document.getElementById('theme-icon');
+function updateSpLogos(theme){
+  document.querySelectorAll('.sp-logo img').forEach(img=>{
+    if(!img.dataset.orig)img.dataset.orig=img.getAttribute('src');
+    if(theme==='dark'){
+      const d=img.dataset.orig.lastIndexOf('.');
+      const base=img.dataset.orig.slice(0,d);
+      const ext=img.dataset.orig.slice(d);
+      const greySameExt=base+' grey'+ext;
+      const greyPng=base+' grey.png';
+      const tryLoad=(src,onFail)=>{const t=new Image();t.onload=()=>img.setAttribute('src',src);t.onerror=onFail;t.src=src;};
+      tryLoad(greySameExt,()=>tryLoad(greyPng,()=>img.setAttribute('src',img.dataset.orig)));
+    } else {
+      img.setAttribute('src',img.dataset.orig);
+    }
+  });
+}
+function setTheme(t){
+  html.setAttribute('data-theme',t);
+  try{localStorage.setItem('theme',t);}catch(e){}
+  themeIcon.innerHTML=`<use href="#ico-${t==='dark'?'sun':'moon'}"/>`;
+  const bti=document.getElementById('burger-theme-icon');
+  const btl=document.getElementById('burger-theme-label');
+  if(bti)bti.innerHTML=`<use href="#ico-${t==='dark'?'sun':'moon'}"/>`;
+  if(btl)btl.textContent=t==='dark'?'Светлая тема':'Тёмная тема';
+  updateSpLogos(t);
+}
+themeBtn.addEventListener('click',()=>setTheme(html.getAttribute('data-theme')==='dark'?'light':'dark'));
+try{const saved=localStorage.getItem('theme');if(saved)setTheme(saved);}catch(e){}
+
+// ── FILTERS ────────────────────────────────────────────────────────────────
+document.querySelectorAll('.chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    const f=c.dataset.filter;
+    let src=PARTICIPANTS.slice(3);
+    if(f==='finalists')src=PARTICIPANTS.slice(3).filter(p=>p.badges.some(b=>b.startsWith('finalist')||b.startsWith('winner')));
+    if(f==='special')  src=PARTICIPANTS.slice(3).filter(p=>p.badges.some(b=>b.startsWith('nom')));
+    renderTable(src,f);
+  });
+});
+document.getElementById('search-input').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  renderTable(q?PARTICIPANTS.filter(p=>p.name.toLowerCase().includes(q)||p.user.toLowerCase().includes(q)):PARTICIPANTS.slice(3));
+});
+
+// ── DRAG SCROLL ────────────────────────────────────────────────────────────
+(()=>{
+  const el=document.querySelector('.sp-logos');
+  let down=false,startX,scrollLeft;
+  el.addEventListener('mousedown',e=>{down=true;startX=e.pageX-el.offsetLeft;scrollLeft=el.scrollLeft;el.classList.add('dragging');});
+  el.addEventListener('mouseleave',()=>{down=false;el.classList.remove('dragging');});
+  el.addEventListener('mouseup',()=>{down=false;el.classList.remove('dragging');});
+  el.addEventListener('mousemove',e=>{if(!down)return;e.preventDefault();const x=e.pageX-el.offsetLeft;el.scrollLeft=scrollLeft-(x-startX);});
+})();
+
+// ── BURGER ─────────────────────────────────────────────────────────────────
+(()=>{
+  const btn=document.getElementById('burger-btn');
+  const menu=document.getElementById('burger-menu');
+  btn.addEventListener('click',e=>{e.stopPropagation();menu.classList.toggle('open');});
+  document.addEventListener('click',()=>menu.classList.remove('open'));
+})();
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+renderPodium();
+renderTable();
+</script>
+</body>
+</html>
