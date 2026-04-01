@@ -217,6 +217,8 @@
     .work-links{display:flex;gap:6px;flex-wrap:wrap;z-index:1;position:relative}
     .work-btn{display:inline-flex;align-items:center;gap:4px;padding:0;border:none;background:none;color:var(--muted);font-size:11px;font-weight:600;white-space:nowrap;transition:.15s;text-decoration:underline;text-underline-offset:2px}
     .work-btn:hover{color:var(--accent)}
+    .txt-link{color:var(--muted);text-decoration:underline;text-underline-offset:2px;transition:color .15s}
+    .txt-link:hover{color:var(--accent)}
     .work-btn svg{width:10px;height:10px;flex-shrink:0}
 
     /* SECTION DIVIDER */
@@ -321,7 +323,15 @@
     .btn-confirm{padding:12px 28px;border-radius:999px;background:linear-gradient(135deg,rgba(104,240,255,.18),rgba(143,120,255,.18));border:1px solid rgba(104,240,255,.35);color:var(--text);font-weight:700;font-size:14px;cursor:pointer;transition:.2s}
     .btn-confirm:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(104,240,255,.12)}
 
-    .footer-note{margin-top:28px;text-align:center;color:var(--muted);font-size:12px}
+    .footer-note{margin-top:16px;text-align:center;color:var(--muted);font-size:12px;padding-right:calc(256px + 20px)}
+    @media(max-width:1080px){.footer-note{padding-right:0}}
+    .footer-channels{display:flex;gap:12px;justify-content:center;margin-top:40px;flex-wrap:wrap;padding-right:calc(256px + 20px)}
+    @media(max-width:1080px){.footer-channels{padding-right:0}}
+    .footer-tg-btn{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--stat-bg);border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--text);transition:border-color .2s,box-shadow .2s;min-width:190px}
+    .footer-tg-btn:hover{border-color:var(--accent);box-shadow:0 0 0 3px rgba(104,240,255,.1)}
+    .footer-tg-btn svg{flex-shrink:0;color:var(--accent)}
+    .ftg-title{font-size:14px;font-weight:600;line-height:1.3}
+    .ftg-sub{font-size:12px;color:var(--muted);margin-top:2px}
 
     /* BURGER MENU */
     .burger-wrap{position:relative;display:none}
@@ -374,7 +384,7 @@
     }
     /* 600px: бургер, home+rating скрыты */
     @media(max-width:600px){
-      .nav-actions>.btn-home,.nav-actions>.btn-rating{display:none!important}
+      .nav-actions>.btn-home,.nav-actions>.btn-rating,.nav-actions>.btn-tg-channels{display:none!important}
       .burger-wrap{display:block}
     }
     /* 500px: кнопка темы уходит в бургер */
@@ -418,9 +428,9 @@
   <symbol id="ico-flag" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 2v16"/><path d="M4 3h12l-3 4.5 3 4.5H4"/>
   </symbol>
-  <symbol id="ico-diamond" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M10 2l1.4 6.6L18 10l-6.6 1.4L10 18l-1.4-6.6L2 10l6.6-1.4z"/>
-    <path d="M15.5 3.5l.6 2 2 .6-2 .6-.6 2-.6-2-2-.6 2-.6z" stroke-width="0.8"/>
+  <symbol id="ico-diamond" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 3L14 3L17 8L10 18L3 8Z"/>
+    <path d="M3 8H17M6 3L10 8M14 3L10 8" stroke-width="1.1"/>
   </symbol>
   <symbol id="ico-check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="10" cy="10" r="8"/><path d="M6.5 10.5l2.5 2.5 4.5-5"/>
@@ -429,10 +439,18 @@
     <circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/>
   </symbol>
   <symbol id="ico-bird" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M1 5C2.5 2.5 4.5 3 6 5.5C7.5 3 9.5 2.5 11 5"/>
-    <path d="M8 10C9.5 7.5 11.5 8 13 10.5C14.5 8 16.5 7.5 18 10"/>
-    <path d="M1 14C2.5 11.5 4.5 12 6 14.5C7.5 12 9.5 11.5 11 14"/>
-    <path d="M11.5 19C12.3 17.5 13.5 17.5 14.3 19C15 17.5 16.2 17.5 17 19" stroke-width="1"/>
+    <!-- нижняя скорлупа -->
+    <path d="M4 11C4 16.5 6.8 18.5 10 18.5C13.2 18.5 16 16.5 16 11"/>
+    <!-- зигзаг трещины -->
+    <path d="M4 11L6.5 9.5L9 11L11 9.5L13.5 11L16 11"/>
+    <!-- голова птенца -->
+    <circle cx="10" cy="7" r="2.5"/>
+    <!-- хохолок -->
+    <path d="M9 4.8C9 3.5 11 3.5 11 4.8" stroke-width="1.2"/>
+    <!-- клюв -->
+    <path d="M12.3 6.8L13.5 7L12.3 7.2" stroke-width="1.2"/>
+    <!-- глазик -->
+    <circle cx="10.7" cy="6.5" r="0.35" fill="currentColor" stroke="none"/>
   </symbol>
   <symbol id="ico-lab" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M2 10s3.5-6 8-6 8 6 8 6-3.5 6-8 6-8-6-8-6z"/>
@@ -476,6 +494,7 @@
       </button>
       <a class="btn btn-home" href="https://aibattle.ru/" style="white-space:nowrap;padding-top:9px;padding-bottom:9px"><span class="btn-label">На главную</span> <svg width="17" height="17" style="flex-shrink:0;margin-top:3px"><use href="#ico-home"/></svg></a>
       <a class="btn btn-primary btn-rating" href="#leaderboard" style="white-space:nowrap"><span class="btn-label">Рейтинг</span> <span style="margin-left:-1px;margin-right:-1.5px">↓</span></a>
+      <a class="btn btn-tg-channels" href="#channels" style="white-space:nowrap;padding-top:9px;padding-bottom:9px" title="Наши каналы в Telegram"><span class="btn-label">Контакты</span> <svg width="16" height="16" style="flex-shrink:0;margin-top:1px"><use href="#ico-tg"/></svg></a>
       <div class="burger-wrap">
         <button class="burger-btn" id="burger-btn" title="Меню">
           <span></span><span></span><span></span>
@@ -483,6 +502,8 @@
         <div class="burger-menu" id="burger-menu">
           <a class="btn btn-home" href="https://aibattle.ru/" style="white-space:nowrap;padding-top:9px;padding-bottom:9px" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>На главную</span> <svg width="16" height="16" style="flex-shrink:0;margin-top:2px"><use href="#ico-home"/></svg></a>
           <a class="btn btn-primary" href="#leaderboard" style="white-space:nowrap" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>Рейтинг</span> <span style="margin-left:-1px;margin-right:-1.5px">↓</span></a>
+          <a class="btn btn-home" href="https://t.me/aibattles_channel" target="_blank" rel="noopener" style="white-space:nowrap;padding-top:9px;padding-bottom:9px" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>AI Battles</span> <svg width="16" height="16" style="flex-shrink:0"><use href="#ico-tg"/></svg></a>
+          <a class="btn btn-home" href="https://t.me/clientsloveu" target="_blank" rel="noopener" style="white-space:nowrap;padding-top:9px;padding-bottom:9px" onclick="document.getElementById('burger-menu').classList.remove('open')"><span>ИИ-агенты</span> <svg width="16" height="16" style="flex-shrink:0"><use href="#ico-tg"/></svg></a>
           <button class="btn burger-theme-btn" id="burger-theme-btn" onclick="document.getElementById('theme-toggle').click();document.getElementById('burger-menu').classList.remove('open')"><span id="burger-theme-label">Светлая тема</span><svg width="16" height="16" id="burger-theme-icon" style="flex-shrink:0"><use href="#ico-sun"/></svg></button>
         </div>
       </div>
@@ -571,7 +592,7 @@
           <div class="legend-item"><div class="legend-mark ico-flag"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-flag"/></svg></div><div><div class="leg-title">Финалист</div><div class="leg-pts">+ 3 000</div><div class="leg-desc">Топ-3 в категории</div></div></div>
           <div class="legend-item"><div class="legend-mark ico-lab"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-lab"/></svg></div><div><div class="leg-title">Оценка зрителей</div><div class="leg-pts">средний балл по категории × 100</div><div class="leg-desc">По итогам зрительского голосования</div></div></div>
           <div class="legend-item"><div class="legend-mark ico-bird"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-bird"/></svg></div><div><div class="leg-title">Ранняя пташка</div><div class="leg-pts">+ 500</div><div class="leg-desc">Первая сданная работа</div></div></div>
-          <div class="legend-item"><div class="legend-mark ico-diamond"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-diamond"/></svg></div><div><div class="leg-title">Аккуратист</div><div class="leg-pts">+ 250 / категория</div><div class="leg-desc">Работа точно по ТЗ</div></div></div>
+          <div class="legend-item"><div class="legend-mark ico-diamond"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-diamond"/></svg></div><div><div class="leg-title">Аккуратист</div><div class="leg-pts">+ 250 / категория</div><div class="leg-desc">Работа точно по <a class="txt-link" href="https://docs.google.com/document/d/1QNf91q12OkArdSfBpaDknMHA98DcRgIcWWA2pqBE1vc/edit?tab=t.a70ymhkqmjsw" target="_blank" rel="noopener">ТЗ</a></div></div></div>
           <div class="legend-item"><div class="legend-mark ico-clock"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-clock"/></svg></div><div><div class="leg-title">В срок</div><div class="leg-pts">+ 250 / работа</div><div class="leg-desc">До дедлайна</div></div></div>
           <div class="legend-item"><div class="legend-mark ico-check"><svg width="14" height="14" style="flex-shrink:0"><use href="#ico-check"/></svg></div><div><div class="leg-title">Пересечь черту</div><div class="leg-pts">+ 250 / работа</div><div class="leg-desc">Факт сдачи</div></div></div>
         </div>
@@ -579,6 +600,22 @@
     </aside>
   </section>
 
+  <div class="footer-channels" id="channels">
+    <a class="footer-tg-btn" href="https://t.me/aibattles_channel" target="_blank" rel="noopener">
+      <svg width="24" height="24"><use href="#ico-tg"/></svg>
+      <div>
+        <div class="ftg-title">AI Battles</div>
+        <div class="ftg-sub">@aibattles_channel · о батлах</div>
+      </div>
+    </a>
+    <a class="footer-tg-btn" href="https://t.me/clientsloveu" target="_blank" rel="noopener">
+      <svg width="24" height="24"><use href="#ico-tg"/></svg>
+      <div>
+        <div class="ftg-title">Клиенты любят ИИ</div>
+        <div class="ftg-sub">@clientsloveu · об агентах</div>
+      </div>
+    </a>
+  </div>
   <div class="footer-note">AI-Battles × Phygital+ · Баттл #3 «Товарные карточки» · Рейтинг · 2026</div>
 </div>
 
@@ -618,48 +655,48 @@ const AB = 'https://aibattle.ru/';
 
 const PARTICIPANTS = [
   {
-    id:1,name:'Александра',user:'AleksandraMalykh',score:16470,
-    badges:['winner:FlowWow','finalist:Speedo','earlybird','clock','nom:fairlab'],
-    prizes:['Победитель FlowWow: 3 м. подписки Phygital+ и 15 000 ₽','Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
-    works:[{l:'FlowWow',u:AB},{l:'Speedo',u:AB}],
-    bd:[['trophy','Победитель категории FlowWow',10000],['flag','Финалист категории Speedo',3000],['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['bird','Ранняя пташка',500],['lab','FairLab Speedo (64 × 10)',640],['lab','FairLab FlowWow (83 × 10)',830]]
+    id:1,name:'Александра',user:'AleksandraMalykh',score:15970,
+    badges:['winner:FLOWWOW','finalist:speedo','earlybird','clock','nom:fairlab'],
+    prizes:['Победитель FLOWWOW: 3 м. подписки Phygital+ и 15 000 ₽','Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    works:[{l:'FLOWWOW',u:AB},{l:'Speedo',u:AB}],
+    bd:[['trophy','Победитель задания от FLOWWOW',10000,'Категория Food & Grocery'],['flag','Финалист категории Speedo',3000],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['bird','Ранняя пташка',500],['lab','FairLab Speedo (64 × 10)',640],['lab','FairLab FLOWWOW (83 × 10)',830]]
   },
   {
-    id:2,name:'Анна',user:'annaivoylova',score:11520,
-    badges:['winner:Speedo','clock'],
+    id:2,name:'Анна',user:'annaivoylova',score:11270,
+    badges:['winner:speedo','clock'],
     prizes:['Победитель Speedo (Выбор зрителей): 3 м. подписки Phygital+ и 15 000 ₽'],
     works:[{l:'Speedo',u:AB}],
-    bd:[['trophy','Победитель категории Speedo',10000],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (77 × 10)',770]]
+    bd:[['trophy','Победитель задания от Speedo',10000,'Категория Home & Lifestyle'],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (77 × 10)',770]]
   },
   {
     id:3,name:'Артём',user:'artem_polienko',score:11180,
     badges:['winner:Ostin','clock','nom:fairlab'],
     prizes:["Победитель O'STIN: 3 м. подписки Phygital+ и 15 000 ₽","Спец. FairLab: «Лучшая оценка ИИ-респондентов»"],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['trophy',"Победитель категории O'STIN",10000],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (43 × 10)",430]]
+    bd:[['trophy',"Победитель задания от O'STIN",10000,'Категория Fashion & Style'],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (43 × 10)",430]]
   },
   {
-    id:4,name:'Елизавета',user:'lizz_tsun',score:9460,
-    badges:['finalist:FlowWow','finalist:Ostin','clock'],prizes:[],
-    works:[{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
-    bd:[['flag','Финалист FlowWow',3000],['flag',"Финалист O'STIN",3000],['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (57 × 10)',570],['lab',"FairLab O'STIN (39 × 10)",390]]
+    id:4,name:'Елизавета',user:'lizz_tsun',score:8960,
+    badges:['finalist:FLOWWOW','finalist:Ostin','clock'],prizes:[],
+    works:[{l:'FLOWWOW',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['flag','Финалист FLOWWOW',3000],['flag',"Финалист O'STIN",3000],['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab FLOWWOW (57 × 10)',570],['lab',"FairLab O'STIN (39 × 10)",390]]
   },
   {
     id:5,name:'Анастасия',user:'pomencuk',score:4590,
-    badges:['finalist:Speedo','clock'],prizes:[],
+    badges:['finalist:speedo','clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
     bd:[['flag','Финалист Speedo',3000],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (84 × 10)',840]]
   },
   {
-    id:6,name:'Анна',user:'sinelas',score:4570,
-    badges:['finalist:FlowWow','clock'],prizes:[],
-    works:[{l:'FlowWow',u:AB}],
-    bd:[['flag','Финалист FlowWow',3000],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — FlowWow',250],['lab','FairLab FlowWow (82 × 10)',820]]
+    id:6,name:'Анна',user:'sinelas',score:4320,
+    badges:['finalist:FLOWWOW','clock'],prizes:[],
+    works:[{l:'FLOWWOW',u:AB}],
+    bd:[['flag','Финалист FLOWWOW',3000],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — FLOWWOW',250],['lab','FairLab FLOWWOW (82 × 10)',820]]
   },
   {
-    id:28,name:'Сергей',user:'sabdes',score:4530,badges:[],prizes:[],
-    works:[{l:"O'STIN",u:AB},{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
-    bd:[['diamond',"Аккуратист — O'STIN",250],['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock',"В срок — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab',"FairLab O'STIN (67 × 10)",670],['lab','FairLab Speedo (82 × 10)',820],['lab','FairLab FlowWow (79 × 10)',790]]
+    id:28,name:'Сергей',user:'sabdes',score:3780,badges:[],prizes:[],
+    works:[{l:"O'STIN",u:AB},{l:'Speedo',u:AB},{l:'FLOWWOW',u:AB}],
+    bd:[['check',"Пересечь черту — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock',"В срок — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab',"FairLab O'STIN (67 × 10)",670],['lab','FairLab Speedo (82 × 10)',820],['lab','FairLab FLOWWOW (79 × 10)',790]]
   },
   {
     id:7,name:'Влада',user:'Vlada_Clo3D',score:4060,
@@ -669,34 +706,34 @@ const PARTICIPANTS = [
     bd:[['flag',"Финалист O'STIN",3000],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (31 × 10)",310]]
   },
   {
-    id:8,name:'Асия',user:'Asiya_kzn',score:3800,badges:['clock'],prizes:[],
-    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab Speedo (50 × 10)',500],['lab','FairLab FlowWow (67 × 10)',670],['lab',"FairLab O'STIN (38 × 10)",380]]
+    id:8,name:'Асия',user:'Asiya_kzn',score:3050,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB},{l:'FLOWWOW',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab Speedo (50 × 10)',500],['lab','FairLab FLOWWOW (67 × 10)',670],['lab',"FairLab O'STIN (38 × 10)",380]]
   },
   {
-    id:9,name:'Надежда',user:'orivmode',score:2760,badges:['clock'],prizes:[],
-    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (79 × 10)',790],['lab','FairLab FlowWow (47 × 10)',470]]
+    id:9,name:'Надежда',user:'orivmode',score:2260,badges:['clock'],prizes:[],
+    works:[{l:'Speedo',u:AB},{l:'FLOWWOW',u:AB}],
+    bd:[['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab','FairLab Speedo (79 × 10)',790],['lab','FairLab FLOWWOW (47 × 10)',470]]
   },
   {
     id:10,name:'Анастасия',user:'red_piaf',score:2670,badges:['clock'],prizes:[],
-    works:[{l:"O'STIN",u:AB},{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (80 × 10)',800],['lab',"FairLab O'STIN (37 × 10)",370]]
+    works:[{l:"O'STIN",u:AB},{l:'FLOWWOW',u:AB}],
+    bd:[['diamond','Аккуратист — FLOWWOW',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab FLOWWOW (80 × 10)',800],['lab',"FairLab O'STIN (37 × 10)",370]]
   },
   {
     id:11,name:'Милана',user:'Avis_108',score:2590,badges:['clock'],prizes:[],
-    works:[{l:'Speedo',u:AB},{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (44 × 10)',440],['lab','FairLab FlowWow (65 × 10)',650]]
+    works:[{l:'Speedo',u:AB},{l:'FLOWWOW',u:AB}],
+    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FLOWWOW',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab','FairLab Speedo (44 × 10)',440],['lab','FairLab FLOWWOW (65 × 10)',650]]
   },
   {
-    id:12,name:'Дарья',user:'Daria_s100',score:2570,badges:['clock'],prizes:[],
-    works:[{l:'FlowWow',u:AB},{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — Speedo',250],['clock','В срок — FlowWow',250],['lab','FairLab Speedo (72 × 10)',720],['lab','FairLab FlowWow (35 × 10)',350]]
+    id:12,name:'Дарья',user:'Daria_s100',score:2070,badges:['clock'],prizes:[],
+    works:[{l:'FLOWWOW',u:AB},{l:'Speedo',u:AB}],
+    bd:[['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab','FairLab Speedo (72 × 10)',720],['lab','FairLab FLOWWOW (35 × 10)',350]]
   },
   {
-    id:13,name:'AI ART LAB',user:'AI_Art_Lab_Creative',score:2500,badges:['clock'],prizes:[],
-    works:[{l:'FlowWow',u:AB},{l:"O'STIN",u:AB}],
-    bd:[['diamond','Аккуратист — FlowWow',250],['diamond',"Аккуратист — O'STIN",250],['check','Пересечь черту — FlowWow',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FlowWow',250],['clock',"В срок — O'STIN",250],['lab','FairLab FlowWow (62 × 10)',620],['lab',"FairLab O'STIN (38 × 10)",380]]
+    id:13,name:'AI ART LAB',user:'AI_Art_Lab_Creative',score:2000,badges:['clock'],prizes:[],
+    works:[{l:'FLOWWOW',u:AB},{l:"O'STIN",u:AB}],
+    bd:[['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab FLOWWOW (62 × 10)',620],['lab',"FairLab O'STIN (38 × 10)",380]]
   },
   {
     id:14,name:'Павел',user:'pavelroev',score:1620,
@@ -705,20 +742,20 @@ const PARTICIPANTS = [
     bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (87 × 10)',870]]
   },
   {
-    id:15,name:'Полина',user:'buta_polina',score:1600,badges:['clock'],prizes:[],
+    id:15,name:'Полина',user:'buta_polina',score:1350,badges:['clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (85 × 10)',850]]
+    bd:[['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (85 × 10)',850]]
   },
   {
-    id:16,name:'Ангелина',user:'angelinka_lz',score:1330,
+    id:16,name:'Ангелина',user:'angelinka_lz',score:1080,
     badges:['nom:fairlab'],prizes:['Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
-    works:[{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['lab','FairLab FlowWow (83 × 10)',830]]
+    works:[{l:'FLOWWOW',u:AB}],
+    bd:[['check','Пересечь черту — FLOWWOW',250],['lab','FairLab FLOWWOW (83 × 10)',830]]
   },
   {
-    id:17,name:'Георгий',user:'GeorgeSharipov',score:1440,badges:['clock'],prizes:[],
+    id:17,name:'Георгий',user:'GeorgeSharipov',score:1190,badges:['clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (69 × 10)',690]]
+    bd:[['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (69 × 10)',690]]
   },
   {
     id:18,name:'Кристина',user:'K_DEZIGN',score:1430,badges:['clock'],prizes:[],
@@ -726,40 +763,40 @@ const PARTICIPANTS = [
     bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (68 × 10)',680]]
   },
   {
-    id:19,name:'Вера',user:'very_ivanova',score:1380,badges:['clock'],prizes:[],
+    id:19,name:'Вера',user:'very_ivanova',score:1130,badges:['clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (63 × 10)',630]]
+    bd:[['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (63 × 10)',630]]
   },
   {
     id:20,name:'Дина',user:'Dinart',score:1380,
-    badges:['clock','nom:flowwow'],prizes:['Спец. FlowWow: сертификат 5 000 ₽'],
-    works:[{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['clock','В срок — FlowWow',250],['lab','FairLab FlowWow (63 × 10)',630]]
+    badges:['clock','nom:flowwow'],prizes:['Спец. FLOWWOW: сертификат 5 000 ₽'],
+    works:[{l:'FLOWWOW',u:AB}],
+    bd:[['diamond','Аккуратист — FLOWWOW',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — FLOWWOW',250],['lab','FairLab FLOWWOW (63 × 10)',630]]
   },
   {
-    id:21,name:'Ольга',user:'zlataflame',score:1340,badges:['clock'],prizes:[],
+    id:21,name:'Ольга',user:'zlataflame',score:1090,badges:['clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (59 × 10)',590]]
+    bd:[['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (59 × 10)',590]]
   },
   {
-    id:22,name:'Рина',user:'rina_zg',score:1120,badges:[],prizes:[],
-    works:[{l:'FlowWow',u:AB}],
-    bd:[['diamond','Аккуратист — FlowWow',250],['check','Пересечь черту — FlowWow',250],['lab','FairLab FlowWow (62 × 10)',620]]
+    id:22,name:'Рина',user:'rina_zg',score:870,badges:[],prizes:[],
+    works:[{l:'FLOWWOW',u:AB}],
+    bd:[['check','Пересечь черту — FLOWWOW',250],['lab','FairLab FLOWWOW (62 × 10)',620]]
   },
   {
-    id:23,name:'Мария',user:'masha_vw',score:1120,badges:['clock'],prizes:[],
+    id:23,name:'Мария',user:'masha_vw',score:870,badges:['clock'],prizes:[],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (37 × 10)",370]]
+    bd:[['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (37 × 10)",370]]
   },
   {
-    id:24,name:'Люба',user:'Lyubashka_ph',score:1110,badges:['clock'],prizes:[],
+    id:24,name:'Люба',user:'Lyubashka_ph',score:860,badges:['clock'],prizes:[],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (36 × 10)",360]]
+    bd:[['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (36 × 10)",360]]
   },
   {
-    id:25,name:'Елена',user:'orkadeisweet',score:1100,badges:['clock'],prizes:[],
+    id:25,name:'Елена',user:'orkadeisweet',score:850,badges:['clock'],prizes:[],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (35 × 10)",350]]
+    bd:[['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (35 × 10)",350]]
   },
   {
     id:26,name:'Игорь',user:'igorsanin',score:1090,
@@ -773,6 +810,7 @@ const PARTICIPANTS = [
     bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250]]
   },
 ];
+PARTICIPANTS.sort((a,b)=>b.score-a.score);
 
 // ── HELPERS ────────────────────────────────────────────────────────────────
 const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00a0');
@@ -781,16 +819,16 @@ const icoC=t=>({trophy:'ico-trophy',flag:'ico-flag',diamond:'ico-diamond',check:
 
 function badgeHtml(b){
   const[type,cat]=b.split(':');
-  const cmap={flowwow:'FlowWow',speedo:'Speedo',ostin:"O'STIN",fairlab:'FairLab',wb:'WB'};
+  const cmap={flowwow:'FLOWWOW',speedo:'Speedo',ostin:"O'STIN",fairlab:'FairLab',wb:'WB'};
   const label=cmap[cat&&cat.toLowerCase()]||cat||'';
   let cls,text;
-  if(type==='winner'){cls='bchip-winner';text=svgU('trophy',10)+' '+label}
-  else if(type==='finalist'){cls='bchip-finalist';text=svgU('flag',10)+' '+label}
+  if(type==='winner'){cls='bchip-winner';text='🏆 '+label}
+  else if(type==='finalist'){cls='bchip-finalist';text='🏁 '+label}
   else if(type==='earlybird'){cls='bchip-earlybird';text=svgU('bird',10)+' Ранняя пташка'}
   else if(type==='clock'){return`<span class="bchip-svg ico-clock" title="В срок">${svgU('clock',17)}</span>`}
   else if(type==='diamond'){return`<span class="bchip-svg ico-diamond" title="Аккуратист">${svgU('diamond',17)}</span>`}
   else if(type==='check'){return`<span class="bchip-svg ico-check" title="Сдал работу">${svgU('check',17)}</span>`}
-  else{const nm={fairlab:'FairLab',ostin:"O'STIN",wb:'WB',flowwow:'FlowWow'};cls='bchip-nom';text='★ '+(nm[cat]||cat)}
+  else{const nm={fairlab:'FairLab',ostin:"O'STIN",wb:'WB',flowwow:'FLOWWOW'};cls='bchip-nom';text='★ '+(nm[cat]||cat)}
   return`<span class="bchip ${cls}">${text}</span>`;
 }
 
@@ -872,15 +910,15 @@ function renderTable(data,badgeFilter){
 function openModal(id){
   const p=PARTICIPANTS.find(x=>x.id===id);if(!p)return;
   document.getElementById('modal-score').textContent=fmt(p.score);
-  const bdDesc={trophy:'Первое место в категории спонсора',flag:'Топ-3 финалистов в категории',diamond:'Работа соответствует требованиям ТЗ',check:'Работа сдана',clock:'Работа сдана до дедлайна',bird:'Первая сданная работа на батле',lab:'Средняя оценка работ по итогам зрительского голосования * 100'};
+  const bdDesc={trophy:'Первое место в категории спонсора',flag:'Топ-3 финалистов в категории',diamond:'Работа соответствует требованиям <a class="txt-link" href="https://docs.google.com/document/d/1QNf91q12OkArdSfBpaDknMHA98DcRgIcWWA2pqBE1vc/edit?tab=t.a70ymhkqmjsw" target="_blank" rel="noopener">ТЗ</a>',check:'Работа сдана',clock:'Работа сдана до дедлайна',bird:'Первая сданная работа на батле',lab:'Средняя оценка работ по итогам зрительского голосования * 100'};
   const fmtLabel=(ico,label)=>ico==='lab'?'Оценка работ '+(label.match(/FairLab\s+(\S+)/)||[])[1]:label;
   const bdOrder={trophy:0,flag:1,bird:2,lab:3,diamond:4,clock:5,check:6};
-  document.getElementById('modal-breakdown').innerHTML=[...p.bd].sort((a,b)=>b[2]-a[2]||(bdOrder[a[0]]??99)-(bdOrder[b[0]]??99)).map(([ico,label,pts])=>`
+  document.getElementById('modal-breakdown').innerHTML=[...p.bd].sort((a,b)=>b[2]-a[2]||(bdOrder[a[0]]??99)-(bdOrder[b[0]]??99)).map(([ico,label,pts,desc])=>`
     <div class="breakdown-row">
       <div class="breakdown-ico ${icoC(ico)}">${svgU(ico,12)}</div>
       <div class="bd-label-wrap">
         <span class="bd-label">${fmtLabel(ico,label)}</span>
-        ${bdDesc[ico]?`<span class="bd-desc">${bdDesc[ico]}</span>`:''}
+        ${(desc||bdDesc[ico])?`<span class="bd-desc">${desc||bdDesc[ico]}</span>`:''}
       </div>
       <span class="bd-pts">+ ${fmt(pts)}</span>
     </div>`).join('');
