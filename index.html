@@ -573,7 +573,7 @@
         <input class="search" type="search" id="search-input" placeholder="Поиск по имени или @username"/>
         <button class="chip active" data-filter="all">Все</button>
         <button class="chip" data-filter="finalists">Финалисты</button>
-        <button class="chip" data-filter="special">Спец. награды</button>
+        <button class="chip" data-filter="special">Спец. номинации</button>
       </div>
       <div class="table-wrap">
         <table>
@@ -657,53 +657,53 @@ const PARTICIPANTS = [
   {
     id:1,name:'Александра',user:'AleksandraMalykh',score:15970,
     badges:['winner:FLOWWOW','finalist:speedo','earlybird','clock','nom:fairlab'],
-    prizes:['Победитель FLOWWOW: 3 м. подписки Phygital+ и 15 000 ₽','Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    prizes:['Победитель FLOWWOW: Подписка Phygital+ (3 месяца) и 15 000 ₽','Спец. номинация FairLab: «Лучшая оценка ИИ-респондентов»'],
     works:[{l:'FLOWWOW',u:AB},{l:'Speedo',u:AB}],
-    bd:[['trophy','Победитель задания от FLOWWOW',10000,'Категория Food & Grocery'],['flag','Финалист категории Speedo',3000],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['bird','Ранняя пташка',500],['lab','FairLab Speedo (64 × 10)',640],['lab','FairLab FLOWWOW (83 × 10)',830]]
+    bd:[['trophy','Победитель в категории Food & Grocery',10000,'Задание от FLOWWOW: 1 место'],['flag','Финалист в категории Home & Lifestyle',3000,'Задание от Speedo: 3 место'],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['bird','Ранняя пташка',500],['lab','FairLab Speedo (64 × 10)',640],['lab','FairLab FLOWWOW (83 × 10)',830]]
   },
   {
     id:2,name:'Анна',user:'annaivoylova',score:11270,
     badges:['winner:speedo','clock'],
-    prizes:['Победитель Speedo (Выбор зрителей): 3 м. подписки Phygital+ и 15 000 ₽'],
+    prizes:['Победитель Speedo (Выбор зрителей): Подписка Phygital+ (3 месяца) и 15 000 ₽'],
     works:[{l:'Speedo',u:AB}],
-    bd:[['trophy','Победитель задания от Speedo',10000,'Категория Home & Lifestyle'],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (77 × 10)',770]]
+    bd:[['trophy','Победитель в категории Home & Lifestyle',10000,'Задание от Speedo: 1 место'],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (77 × 10)',770]]
   },
   {
     id:3,name:'Артём',user:'artem_polienko',score:11180,
     badges:['winner:Ostin','clock','nom:fairlab'],
-    prizes:["Победитель O'STIN: 3 м. подписки Phygital+ и 15 000 ₽","Спец. FairLab: «Лучшая оценка ИИ-респондентов»"],
+    prizes:["Победитель O'STIN: Подписка Phygital+ (3 месяца) и 15 000 ₽","Спец. номинация FairLab: «Лучшая оценка ИИ-респондентов»"],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['trophy',"Победитель задания от O'STIN",10000,'Категория Fashion & Style'],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (43 × 10)",430]]
+    bd:[['trophy',"Победитель в категории Fashion & Style",10000,"Задание от O'STIN: 1 место"],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (43 × 10)",430]]
   },
   {
     id:4,name:'Елизавета',user:'lizz_tsun',score:8960,
     badges:['finalist:FLOWWOW','finalist:Ostin','clock'],prizes:[],
     works:[{l:'FLOWWOW',u:AB},{l:"O'STIN",u:AB}],
-    bd:[['flag','Финалист FLOWWOW',3000],['flag',"Финалист O'STIN",3000],['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab FLOWWOW (57 × 10)',570],['lab',"FairLab O'STIN (39 × 10)",390]]
+    bd:[['flag','Финалист в категории Food & Grocery',3000,'Задание от FLOWWOW: 2 место'],['flag',"Финалист в категории Fashion & Style",3000,"Задание от O'STIN: 2 место"],['check','Пересечь черту — FLOWWOW',250],['check',"Пересечь черту — O'STIN",250],['clock','В срок — FLOWWOW',250],['clock',"В срок — O'STIN",250],['lab','FairLab FLOWWOW (57 × 10)',570],['lab',"FairLab O'STIN (39 × 10)",390]]
   },
   {
     id:5,name:'Анастасия',user:'pomencuk',score:4590,
     badges:['finalist:speedo','clock'],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['flag','Финалист Speedo',3000],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (84 × 10)',840]]
+    bd:[['flag','Финалист в категории Home & Lifestyle',3000,'Задание от Speedo: 2 место'],['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (84 × 10)',840]]
   },
   {
     id:6,name:'Анна',user:'sinelas',score:4320,
     badges:['finalist:FLOWWOW','clock'],prizes:[],
     works:[{l:'FLOWWOW',u:AB}],
-    bd:[['flag','Финалист FLOWWOW',3000],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — FLOWWOW',250],['lab','FairLab FLOWWOW (82 × 10)',820]]
+    bd:[['flag','Финалист в категории Food & Grocery',3000,'Задание от FLOWWOW: 3 место'],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — FLOWWOW',250],['lab','FairLab FLOWWOW (82 × 10)',820]]
   },
   {
-    id:28,name:'Сергей',user:'sabdes',score:3780,badges:[],prizes:[],
+    id:28,name:'Сергей',user:'sabdes',score:3180,badges:[],prizes:[],
     works:[{l:"O'STIN",u:AB},{l:'Speedo',u:AB},{l:'FLOWWOW',u:AB}],
-    bd:[['check',"Пересечь черту — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock',"В срок — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab',"FairLab O'STIN (67 × 10)",670],['lab','FairLab Speedo (82 × 10)',820],['lab','FairLab FLOWWOW (79 × 10)',790]]
+    bd:[['check',"Пересечь черту — O'STIN",250],['check','Пересечь черту — Speedo',250],['check','Пересечь черту — FLOWWOW',250],['clock',"В срок — O'STIN",250],['clock','В срок — Speedo',250],['clock','В срок — FLOWWOW',250],['lab',"FairLab O'STIN (37 × 10)",370],['lab','FairLab Speedo (58 × 10)',580],['lab','FairLab FLOWWOW (73 × 10)',730]]
   },
   {
     id:7,name:'Влада',user:'Vlada_Clo3D',score:4060,
     badges:['finalist:Ostin','clock','nom:ostin','nom:wb'],
-    prizes:["Спец. O'STIN: подарочная карта + парфюм","Спец. Wildberries: «Самый удобный пайплайн»"],
+    prizes:["Спец. номинация O'STIN: подарочная карта + парфюм","Спец. номинация Wildberries: «Самый удобный пайплайн»"],
     works:[{l:"O'STIN",u:AB}],
-    bd:[['flag',"Финалист O'STIN",3000],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (31 × 10)",310]]
+    bd:[['flag',"Финалист в категории Fashion & Style",3000,"Задание от O'STIN: 3 место"],['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (31 × 10)",310]]
   },
   {
     id:8,name:'Асия',user:'Asiya_kzn',score:3050,badges:['clock'],prizes:[],
@@ -737,7 +737,7 @@ const PARTICIPANTS = [
   },
   {
     id:14,name:'Павел',user:'pavelroev',score:1620,
-    badges:['clock','nom:fairlab'],prizes:['Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    badges:['clock','nom:fairlab'],prizes:['Спец. номинация FairLab: «Лучшая оценка ИИ-респондентов»'],
     works:[{l:'Speedo',u:AB}],
     bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['clock','В срок — Speedo',250],['lab','FairLab Speedo (87 × 10)',870]]
   },
@@ -748,7 +748,7 @@ const PARTICIPANTS = [
   },
   {
     id:16,name:'Ангелина',user:'angelinka_lz',score:1080,
-    badges:['nom:fairlab'],prizes:['Спец. FairLab: «Лучшая оценка ИИ-респондентов»'],
+    badges:['nom:fairlab'],prizes:['Спец. номинация FairLab: «Лучшая оценка ИИ-респондентов»'],
     works:[{l:'FLOWWOW',u:AB}],
     bd:[['check','Пересечь черту — FLOWWOW',250],['lab','FairLab FLOWWOW (83 × 10)',830]]
   },
@@ -769,7 +769,7 @@ const PARTICIPANTS = [
   },
   {
     id:20,name:'Дина',user:'Dinart',score:1380,
-    badges:['clock','nom:flowwow'],prizes:['Спец. FLOWWOW: сертификат 5 000 ₽'],
+    badges:['clock','nom:flowwow'],prizes:['Спец. номинация FLOWWOW: сертификат 5 000 ₽'],
     works:[{l:'FLOWWOW',u:AB}],
     bd:[['diamond','Аккуратист — FLOWWOW',250],['check','Пересечь черту — FLOWWOW',250],['clock','В срок — FLOWWOW',250],['lab','FairLab FLOWWOW (63 × 10)',630]]
   },
@@ -800,14 +800,14 @@ const PARTICIPANTS = [
   },
   {
     id:26,name:'Игорь',user:'igorsanin',score:1090,
-    badges:['clock','nom:ostin'],prizes:["Спец. O'STIN: номинация «3-е место по ТЗ»"],
+    badges:['clock','nom:ostin'],prizes:["Спец. номинация O'STIN: номинация «3-е место по ТЗ»"],
     works:[{l:"O'STIN",u:AB}],
     bd:[['diamond',"Аккуратист — O'STIN",250],['check',"Пересечь черту — O'STIN",250],['clock',"В срок — O'STIN",250],['lab',"FairLab O'STIN (34 × 10)",340]]
   },
   {
-    id:27,name:'Елена',user:'ElenaNekrasovaFG',score:500,badges:[],prizes:[],
+    id:27,name:'Елена',user:'ElenaNekrasovaFG',score:1120,badges:[],prizes:[],
     works:[{l:'Speedo',u:AB}],
-    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250]]
+    bd:[['diamond','Аккуратист — Speedo',250],['check','Пересечь черту — Speedo',250],['lab','FairLab Speedo (62 × 10)',620]]
   },
 ];
 PARTICIPANTS.sort((a,b)=>b.score-a.score);
